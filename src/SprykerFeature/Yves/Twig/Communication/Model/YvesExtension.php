@@ -4,10 +4,10 @@
  * (c) Spryker Systems GmbH copyright protected
  */
 
-namespace SprykerFeature\Yves\Twig\Model;
+namespace SprykerFeature\Yves\Twig\Communication\Model;
 
 use SprykerEngine\Yves\Application\Business\Application;
-use SprykerFeature\Yves\Twig\TwigSettings;
+use SprykerFeature\Yves\Twig\Communication\TwigSettings;
 
 class YvesExtension extends \Twig_Extension
 {

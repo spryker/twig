@@ -4,12 +4,12 @@
  * (c) Spryker Systems GmbH copyright protected
  */
 
-namespace SprykerFeature\Yves\Twig;
+namespace SprykerFeature\Yves\Twig\Communication;
 
 use Generated\Yves\Ide\AutoCompletion;
 use SprykerEngine\Shared\Kernel\LocatorLocatorInterface;
-use SprykerFeature\Yves\Twig\Dependency\Plugin\TwigFilterPluginInterface;
-use SprykerFeature\Yves\Twig\Dependency\Plugin\TwigFunctionPluginInterface;
+use SprykerFeature\Yves\Twig\Communication\Dependency\Plugin\TwigFilterPluginInterface;
+use SprykerFeature\Yves\Twig\Communication\Dependency\Plugin\TwigFunctionPluginInterface;
 
 class TwigSettings
 {

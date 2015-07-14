@@ -4,7 +4,7 @@
  * (c) Spryker Systems GmbH copyright protected
  */
 
-namespace SprykerFeature\Yves\Twig\Loader;
+namespace SprykerFeature\Yves\Twig\Communication\Loader;
 
 use Twig_Error_Loader;
 

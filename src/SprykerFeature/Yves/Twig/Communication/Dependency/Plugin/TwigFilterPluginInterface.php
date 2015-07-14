@@ -4,7 +4,7 @@
  * (c) Spryker Systems GmbH copyright protected
  */
 
-namespace SprykerFeature\Yves\Twig\Dependency\Plugin;
+namespace SprykerFeature\Yves\Twig\Communication\Dependency\Plugin;
 
 interface TwigFilterPluginInterface
 {
