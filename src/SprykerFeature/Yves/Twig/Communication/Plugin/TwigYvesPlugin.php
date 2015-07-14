@@ -4,11 +4,11 @@
  * (c) Spryker Systems GmbH copyright protected
  */
 
-namespace SprykerFeature\Yves\Twig\Plugin;
+namespace SprykerFeature\Yves\Twig\Communication\Plugin;
 
 use Silex\Application;
-use SprykerEngine\Yves\Kernel\AbstractPlugin;
-use SprykerFeature\Yves\Twig\TwigDependencyContainer;
+use SprykerEngine\Yves\Kernel\Communication\AbstractPlugin;
+use SprykerFeature\Yves\Twig\Communication\TwigDependencyContainer;
 
 /**
  * @method TwigDependencyContainer getDependencyContainer()

@@ -4,10 +4,10 @@
  * (c) Spryker Systems GmbH copyright protected
  */
 
-namespace SprykerFeature\Yves\Twig\Plugin;
+namespace SprykerFeature\Yves\Twig\Communication\Plugin;
 
-use SprykerEngine\Yves\Kernel\AbstractPlugin;
-use SprykerFeature\Yves\Twig\Dependency\Plugin\TwigFilterPluginInterface;
+use SprykerEngine\Yves\Kernel\Communication\AbstractPlugin;
+use SprykerFeature\Yves\Twig\Communication\Dependency\Plugin\TwigFilterPluginInterface;
 
 class TwigNativePlugin extends AbstractPlugin implements TwigFilterPluginInterface
 {

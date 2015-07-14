@@ -4,7 +4,7 @@
  * (c) Spryker Systems GmbH copyright protected
  */
 
-namespace SprykerFeature\Yves\Twig\Plugin;
+namespace SprykerFeature\Yves\Twig\Communication\Plugin;
 
 use SprykerFeature\Shared\Library\Config;
 use SprykerFeature\Shared\System\SystemConfig;
@@ -13,7 +13,7 @@ use SprykerEngine\Yves\Application\Business\Application as SprykerApplication;
 use SprykerEngine\Yves\Application\Business\Routing\Helper;
 use Silex\Application;
 use Silex\Provider\TwigServiceProvider as SilexTwigServiceProvider;
-use SprykerFeature\Yves\Twig\Loader\YvesFilesystemLoader;
+use SprykerFeature\Yves\Twig\Communication\Loader\YvesFilesystemLoader;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;

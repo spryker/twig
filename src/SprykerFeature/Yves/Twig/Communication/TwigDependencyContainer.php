@@ -4,12 +4,12 @@
  * (c) Spryker Systems GmbH copyright protected
  */
 
-namespace SprykerFeature\Yves\Twig;
+namespace SprykerFeature\Yves\Twig\Communication;
 
 use Generated\Yves\Ide\FactoryAutoCompletion\Twig;
 use Silex\Application;
 use SprykerEngine\Yves\Kernel\AbstractDependencyContainer;
-use SprykerFeature\Yves\Twig\Model\YvesExtension;
+use SprykerFeature\Yves\Twig\Communication\Model\YvesExtension;
 
 /**
  * @method Twig getFactory()
