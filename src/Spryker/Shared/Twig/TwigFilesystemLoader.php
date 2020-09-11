@@ -185,7 +185,7 @@ class TwigFilesystemLoader implements FilesystemLoaderInterface
         }
 
         $pathFragments = explode(DIRECTORY_SEPARATOR, $path);
-        $positionOfSourceDirectory = array_search('src', $pathFragments);
+        $positionOfSourceDirectory = array_search('src', array_reverse($pathFragments, true), true);
         $pathFragments[$positionOfSourceDirectory + 1] = $organization;
 
         return implode(DIRECTORY_SEPARATOR, $pathFragments);
