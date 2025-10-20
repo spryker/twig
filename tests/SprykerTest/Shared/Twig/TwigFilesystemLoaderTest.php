@@ -32,7 +32,7 @@ class TwigFilesystemLoaderTest extends Unit
 {
     public const PATH_TO_ZED_PROJECT = __DIR__ . '/Fixtures/src/ProjectNamespace/Zed/Bundle/Presentation';
 
-    public const PATH_TO_ZED_CORE = __DIR__ . '/Fixtures/vendor/spryker/spryker/Bundles/*/src/CoreNamespace/Zed/%s/Presentation';
+    public const PATH_TO_ZED_CORE = __DIR__ . '/Fixtures/src/Spryker/*/src/CoreNamespace/Zed/%s/Presentation';
 
     /**
      * @var string
@@ -154,7 +154,7 @@ class TwigFilesystemLoaderTest extends Unit
         $method = $reflection->getMethod('isPathInSplit');
         $method->setAccessible(true);
 
-        $result = $method->invokeArgs($filesystemLoader, ['vendor/spryker/spryker/Bundles/Foo/']);
+        $result = $method->invokeArgs($filesystemLoader, ['src/Spryker/Foo/']);
         $this->assertFalse($result);
 
         $result = $method->invokeArgs($filesystemLoader, ['vendor/spryker/foo/']);

@@ -189,8 +189,8 @@ class TwigHelper extends Module
         $this->getConfigHelper()->mockConfigMethod('getTemplatePaths', function () {
             $twigConfig = new TwigConfig();
             $paths = $twigConfig->getTemplatePaths();
-            $paths[] = APPLICATION_VENDOR_DIR . '/spryker/spryker/Bundles/%2$s/src/*/Zed/%1$s/Presentation';
-            $paths[] = APPLICATION_VENDOR_DIR . '/spryker/spryker/Features/%2$s/src/*/Zed/%1$s/Presentation';
+            $paths[] = APPLICATION_ROOT_DIR . '/src/Spryker/%2$s/src/*/Zed/%1$s/Presentation';
+            $paths[] = APPLICATION_ROOT_DIR . '/src/SprykerFeature/%2$s/src/*/Zed/%1$s/Presentation';
 
             return $paths;
         }, static::MODULE_NAME);
