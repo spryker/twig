@@ -103,7 +103,7 @@ class TwigHelper extends Module
 
         foreach ($this->defaultLoaderPlugins as $defaultLoaderPlugin) {
             if (!isset($this->loaderPlugins[$defaultLoaderPlugin])) {
-                $templatePaths = [rtrim(APPLICATION_VENDOR_DIR, '/') . '/spryker/spryker/Bundles/%2$s/src/Spryker/Zed/%1$s/Presentation/'];
+                $templatePaths = [rtrim(APPLICATION_SOURCE_DIR, '/') . '/Spryker/%2$s/src/Spryker/Zed/%1$s/Presentation/'];
                 $this->getConfigHelper()->mockConfigMethod('addCoreTemplatePaths', $templatePaths, static::MODULE_NAME);
                 $twigFactory = $this->getCommunicationHelper()->getFactory(static::MODULE_NAME);
                 $twigLoaderPlugin = new $defaultLoaderPlugin();
