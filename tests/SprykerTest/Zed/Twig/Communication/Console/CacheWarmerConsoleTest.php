@@ -8,7 +8,7 @@
 namespace SprykerTest\Zed\Twig\Communication\Console;
 
 use Codeception\Test\Unit;
-use Spryker\Zed\Twig\Business\TwigFacadeInterface;
+use Spryker\Zed\Twig\Business\TwigFacade;
 use Spryker\Zed\Twig\Communication\Console\CacheWarmerConsole;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -57,12 +57,11 @@ class CacheWarmerConsoleTest extends Unit
     }
 
     /**
-     * @return \Spryker\Zed\Twig\Business\TwigFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Spryker\Zed\Twig\Business\TwigFacade|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected function getFacadeMock(): TwigFacadeInterface
+    protected function getFacadeMock(): TwigFacade
     {
-        $mockBuilder = $this->getMockBuilder(TwigFacadeInterface::class);
-
-        return $mockBuilder->getMock();
+        return $this->getMockBuilder(TwigFacade::class)
+            ->getMock();
     }
 }
