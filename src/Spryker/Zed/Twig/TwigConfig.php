@@ -160,9 +160,9 @@ class TwigConfig extends AbstractBundleConfig
     public function getZedDirectoryPathPattern()
     {
         /** @var array<int, string> $vendorPresentations */
-        $vendorPresentations = glob('vendor/*/*/src/*/Zed/*/Presentation', GLOB_ONLYDIR | GLOB_NOSORT);
+        $vendorPresentations = glob('vendor/*/*/src/*/Zed/*/Presentation', GLOB_ONLYDIR | GLOB_NOSORT) ?: [];
         /** @var array<int, string> $projectPresentations */
-        $projectPresentations = glob('src/*/Zed/*/Presentation', GLOB_ONLYDIR | GLOB_NOSORT);
+        $projectPresentations = glob('src/*/Zed/*/Presentation', GLOB_ONLYDIR | GLOB_NOSORT) ?: [];
 
         $directories = array_merge(
             $vendorPresentations,
@@ -191,6 +191,9 @@ class TwigConfig extends AbstractBundleConfig
      */
     public function getYvesDirectoryPathPattern()
     {
+        // The order of namespaces defines final resolving, should start with the project namespace
+        $namespaces = $this->getProjectNamespaces();
+
         $themeName = $this->getSharedConfig()->getYvesThemeName();
         $themeNameDefault = $this->getSharedConfig()->getYvesThemeNameDefault();
 
@@ -198,18 +201,18 @@ class TwigConfig extends AbstractBundleConfig
             $themeName = $themeNameDefault;
         }
 
-        /** @var array<int, string> $vendorThemeNames */
-        $vendorThemeNames = glob('vendor/*/*/src/*/Yves/*/Theme/' . $themeName, GLOB_ONLYDIR | GLOB_NOSORT);
-        /** @var array<int, string> $projectDefaultThemeNames */
-        $projectDefaultThemeNames = glob('src/*/Yves/*/Theme/' . $themeNameDefault, GLOB_ONLYDIR | GLOB_NOSORT);
-        /** @var array<int, string> $projectThemeNames */
-        $projectThemeNames = glob('src/*/Yves/*/Theme/' . $themeName, GLOB_ONLYDIR | GLOB_NOSORT);
+        /** @var array<int, string> $directories */
+        $directories = glob('vendor/*/*/src/*/Yves/*/Theme/' . $themeName, GLOB_ONLYDIR | GLOB_NOSORT) ?: [];
 
-        $directories = array_merge(
-            $vendorThemeNames,
-            $projectDefaultThemeNames,
-            $projectThemeNames,
-        );
+        foreach (array_reverse($namespaces) as $namespace) {
+
+            /** @var array<int, string> $projectDefaultThemeNames */
+            $projectDefaultThemeNames = glob('src/' . $namespace . '/Yves/*/Theme/' . $themeNameDefault, GLOB_ONLYDIR | GLOB_NOSORT) ?: [];
+            /** @var array<int, string> $projectThemeNames */
+            $projectThemeNames = glob('src/' . $namespace . '/Yves/*/Theme/' . $themeName, GLOB_ONLYDIR | GLOB_NOSORT) ?: [];
+
+            $directories = array_merge($directories, $projectDefaultThemeNames, $projectThemeNames);
+        }
 
         return $directories;
     }
