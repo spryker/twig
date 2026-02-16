@@ -14,5 +14,11 @@ parameters:
         - '#Call to an undefined static method Twig\\Extension\\CoreExtension\:\:.+\(\).#'
         -
             identifier: missingType.iterableValue
+        -
+            identifier: varTag.nativeType
+        -
+            identifier: missingType.generics
+        -
+            identifier: function.alreadyNarrowedType
     reportUnmatchedIgnoredErrors: false
     treatPhpDocTypesAsCertain: false
