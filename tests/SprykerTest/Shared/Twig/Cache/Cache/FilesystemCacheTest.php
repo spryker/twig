@@ -56,9 +56,6 @@ class FilesystemCacheTest extends Unit
      */
     public const INVALID_CACHE_KEY = 'invalid value';
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         if (is_file($this->getCacheFile())) {
@@ -68,9 +65,6 @@ class FilesystemCacheTest extends Unit
         $this->buildTestCacheFile();
     }
 
-    /**
-     * @return string
-     */
     protected function getCacheFile(): string
     {
         $cacheFile = $this->getFixtureDirectory() . 'cache.php';
@@ -78,9 +72,6 @@ class FilesystemCacheTest extends Unit
         return $cacheFile;
     }
 
-    /**
-     * @return string
-     */
     protected function getFixtureDirectory(): string
     {
         //TODO: THis needs to be moved to tmp dir instead.
@@ -89,9 +80,6 @@ class FilesystemCacheTest extends Unit
         return $directory;
     }
 
-    /**
-     * @return void
-     */
     protected function buildTestCacheFile(): void
     {
         $content = <<<TXT
@@ -104,65 +92,41 @@ TXT;
         file_put_contents($this->getCacheFile(), $content);
     }
 
-    /**
-     * @return void
-     */
     public function testEnabledPathCacheCanBeInstantiated(): void
     {
         $this->assertInstanceOf(CacheInterface::class, $this->getEnabledCache());
     }
 
-    /**
-     * @return void
-     */
     public function testDisabledPathCacheCanBeInstantiated(): void
     {
         $this->assertInstanceOf(CacheInterface::class, $this->getDisabledCache());
     }
 
-    /**
-     * @return void
-     */
     public function testHasReturnsFalseIfCacheHasKeyButCacheIsDisabled(): void
     {
         $this->assertFalse($this->getDisabledCache()->has(static::EXISTING_CACHE_KEY));
     }
 
-    /**
-     * @return void
-     */
     public function testHasReturnsTrueIfCacheHasKey(): void
     {
         $this->assertTrue($this->getEnabledCache()->has(static::EXISTING_CACHE_KEY));
     }
 
-    /**
-     * @return void
-     */
     public function testGetReturnsFalseIfCacheIsDisabled(): void
     {
         $this->assertFalse($this->getDisabledCache()->get(static::EXISTING_CACHE_KEY));
     }
 
-    /**
-     * @return void
-     */
     public function testGetReturnsFalseIfKeyNotInCache(): void
     {
         $this->assertFalse($this->getEnabledCache()->get(static::NOT_EXISTING_CACHE_KEY));
     }
 
-    /**
-     * @return void
-     */
     public function testGetReturnsValueIfCacheHasKey(): void
     {
         $this->assertSame(static::EXISTING_CACHE_VALUE, $this->getEnabledCache()->get(static::EXISTING_CACHE_KEY));
     }
 
-    /**
-     * @return void
-     */
     public function testSetAddsValueToCache(): void
     {
         $cache = $this->getEnabledCache();
@@ -171,50 +135,32 @@ TXT;
         $this->assertSame(static::NEW_CACHE_VALUE, $cache->get(static::NEW_CACHE_KEY));
     }
 
-    /**
-     * @return void
-     */
     public function testSetReturnFluentInterface(): void
     {
         $cache = $this->getEnabledCache()->set(static::NEW_CACHE_KEY, static::NEW_CACHE_VALUE);
         $this->assertInstanceOf(CacheInterface::class, $cache);
     }
 
-    /**
-     * @return void
-     */
     public function testIsValidReturnsFalseIfCacheIsDisabled(): void
     {
         $this->assertFalse($this->getDisabledCache()->isValid(static::EXISTING_CACHE_KEY));
     }
 
-    /**
-     * @return void
-     */
     public function testIsValidReturnsFalseIfKeyNotInCache(): void
     {
         $this->assertFalse($this->getEnabledCache()->get(static::NOT_EXISTING_CACHE_KEY));
     }
 
-    /**
-     * @return void
-     */
     public function testIsValidReturnsTrueIfValueNotSetToFalse(): void
     {
         $this->assertTrue($this->getEnabledCache()->isValid(static::EXISTING_CACHE_KEY));
     }
 
-    /**
-     * @return void
-     */
     public function testIsValidReturnsFalseIfValueSetToFalse(): void
     {
         $this->assertFalse($this->getEnabledCache()->isValid(static::INVALID_CACHE_KEY));
     }
 
-    /**
-     * @return void
-     */
     public function testWhenDestructIsCalledCacheIsWrittenToFile(): void
     {
         $cache = $this->getEnabledCache();
@@ -225,9 +171,6 @@ TXT;
         $this->assertTrue($cache->has(static::NEW_CACHE_KEY), 'Cache does not contain expected key, maybe cache was not written to file');
     }
 
-    /**
-     * @return \Spryker\Shared\Twig\Cache\Cache\FilesystemCache
-     */
     protected function getEnabledCache(): FilesystemCache
     {
         $pathToCacheFile = $this->getCacheFile();
@@ -239,9 +182,6 @@ TXT;
         );
     }
 
-    /**
-     * @return \Spryker\Shared\Twig\Cache\Cache\FilesystemCache
-     */
     protected function getDisabledCache(): FilesystemCache
     {
         $pathToCacheFile = $this->getCacheFile();
@@ -253,21 +193,11 @@ TXT;
         );
     }
 
-    /**
-     * @param string $pathToCacheFile
-     *
-     * @return \Spryker\Shared\Twig\Cache\CacheLoader\FilesystemCacheLoader
-     */
     protected function getFilesystemCacheLoader(string $pathToCacheFile): FilesystemCacheLoader
     {
         return new FilesystemCacheLoader($pathToCacheFile);
     }
 
-    /**
-     * @param string $pathToCacheFile
-     *
-     * @return \Spryker\Shared\Twig\Cache\CacheWriter\FilesystemCacheWriter
-     */
     protected function getFilesystemCacheWriter(string $pathToCacheFile): FilesystemCacheWriter
     {
         return new FilesystemCacheWriter($pathToCacheFile, 0777);

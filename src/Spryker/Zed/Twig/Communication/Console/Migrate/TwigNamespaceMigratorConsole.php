@@ -35,9 +35,6 @@ class TwigNamespaceMigratorConsole extends Console
      */
     public const ARGUMENT_PATH = 'path';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         $this
@@ -48,12 +45,6 @@ class TwigNamespaceMigratorConsole extends Console
         parent::configure();
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return int
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $numberOfChangedFiles = $this->searchAndReplace();
@@ -69,9 +60,6 @@ class TwigNamespaceMigratorConsole extends Console
         return static::CODE_SUCCESS;
     }
 
-    /**
-     * @return int
-     */
     protected function searchAndReplace(): int
     {
         $searchAndReplaceMap = $this->buildSearchAndReplaceMap();

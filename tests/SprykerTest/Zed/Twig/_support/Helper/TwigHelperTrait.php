@@ -11,9 +11,6 @@ use Codeception\Module;
 
 trait TwigHelperTrait
 {
-    /**
-     * @return \SprykerTest\Zed\Twig\Helper\TwigHelper
-     */
     protected function getTwigHelper(): TwigHelper
     {
         /** @var \SprykerTest\Zed\Twig\Helper\TwigHelper $twigHelper */
@@ -22,10 +19,5 @@ trait TwigHelperTrait
         return $twigHelper;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return \Codeception\Module
-     */
     abstract protected function getModule(string $name): Module;
 }

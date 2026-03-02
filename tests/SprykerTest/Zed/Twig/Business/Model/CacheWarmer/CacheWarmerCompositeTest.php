@@ -25,9 +25,6 @@ use Spryker\Zed\Twig\Business\Model\CacheWarmerInterface;
  */
 class CacheWarmerCompositeTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testCanBeInstantiated(): void
     {
         $cacheWarmerMock1 = $this->getCacheWarmerMock();
@@ -41,9 +38,6 @@ class CacheWarmerCompositeTest extends Unit
         $this->assertInstanceOf(CacheWarmerInterface::class, $cacheWarmerComposite);
     }
 
-    /**
-     * @return void
-     */
     public function testWarmUpCallsAllAppliedCacheWarmer(): void
     {
         $cacheWarmerMock1 = $this->getCacheWarmerMock();

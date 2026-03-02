@@ -27,9 +27,6 @@ use Spryker\Yves\Twig\Plugin\ServiceProvider\TwigServiceProvider;
  */
 class TwigServiceProviderTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testRegisterAddsFilesystemLoaderToApplication(): void
     {
         $application = new Application();
@@ -43,9 +40,6 @@ class TwigServiceProviderTest extends Unit
         $this->assertArrayHasKey('twig.loader.yves', $application);
     }
 
-    /**
-     * @return void
-     */
     public function testBootDoesNothing(): void
     {
         $application = new Application();

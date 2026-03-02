@@ -27,11 +27,6 @@ class TemplateNameBuilderZed implements NamespacedTemplateNameBuilderInterface
         return sprintf('@%s/%s', $module, implode('/', $template));
     }
 
-    /**
-     * @param string $filePath
-     *
-     * @return string
-     */
     public function buildNamespacedTemplateName(string $filePath): string
     {
         $pathsParts = explode(DIRECTORY_SEPARATOR, $filePath);

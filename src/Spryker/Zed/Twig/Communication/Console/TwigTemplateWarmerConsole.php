@@ -28,9 +28,6 @@ class TwigTemplateWarmerConsole extends Console
      */
     protected const DESCRIPTION = 'Warm up Twig templates by loading them.';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         $this
@@ -38,12 +35,6 @@ class TwigTemplateWarmerConsole extends Console
             ->setDescription(static::DESCRIPTION);
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return int
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $templateMap = $this->getFactory()

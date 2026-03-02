@@ -29,9 +29,6 @@ class EnvironmentCoreExtensionTest extends Unit
      */
     protected TwigSharedTester $tester;
 
-    /**
-     * @return void
-     */
     public function testFilterShouldExcludeSystemPhpFunctionFromExecutions(): void
     {
         // Arrange

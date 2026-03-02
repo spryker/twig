@@ -25,9 +25,6 @@ use Spryker\Zed\Twig\Business\TwigFacade;
  */
 class TwigFacadeTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testWarmUpCacheDelegatesToCacheWarmerModel(): void
     {
         $factoryMock = $this->getFactoryMock();

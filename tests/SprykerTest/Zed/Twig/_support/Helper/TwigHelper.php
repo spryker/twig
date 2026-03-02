@@ -84,9 +84,6 @@ class TwigHelper extends Module
         FormFilesystemTwigLoaderPlugin::class,
     ];
 
-    /**
-     * @return void
-     */
     public function _initialize(): void
     {
         foreach ($this->config[static::CONFIG_KEY_TWIG_PLUGINS] as $twigPlugin) {
@@ -113,11 +110,6 @@ class TwigHelper extends Module
         }
     }
 
-    /**
-     * @param \Codeception\TestInterface $test
-     *
-     * @return void
-     */
     public function _before(TestInterface $test): void
     {
         parent::_before($test);
@@ -131,9 +123,6 @@ class TwigHelper extends Module
         $this->addDependencies();
     }
 
-    /**
-     * @return void
-     */
     protected function setDefaultConfig(): void
     {
         $this->config = [
@@ -142,9 +131,6 @@ class TwigHelper extends Module
         ];
     }
 
-    /**
-     * @return \Spryker\Zed\Twig\Communication\Plugin\Application\TwigApplicationPlugin
-     */
     protected function getTwigApplicationPluginStub(): TwigApplicationPlugin
     {
         /** @var \Spryker\Zed\Twig\Communication\Plugin\Application\TwigApplicationPlugin $twigApplicationPlugin */
@@ -160,9 +146,6 @@ class TwigHelper extends Module
         return $twigApplicationPlugin;
     }
 
-    /**
-     * @return void
-     */
     protected function addDependencies(): void
     {
         $this->getDependencyProviderHelper()->setDependency(TwigDependencyProvider::PLUGINS_TWIG, $this->twigPlugins);
@@ -170,9 +153,6 @@ class TwigHelper extends Module
         $this->getDependencyProviderHelper()->setDependency(TwigDependencyProvider::PLUGINS_TWIG_LOADER, $this->loaderPlugins);
     }
 
-    /**
-     * @return \Spryker\Zed\Twig\Communication\TwigCommunicationFactory
-     */
     protected function getFactory(): TwigCommunicationFactory
     {
         /** @var \Spryker\Zed\Twig\Communication\TwigCommunicationFactory $twigCommunicationFactory */
@@ -181,9 +161,6 @@ class TwigHelper extends Module
         return $twigCommunicationFactory;
     }
 
-    /**
-     * @return \Spryker\Zed\Twig\TwigConfig
-     */
     protected function getConfig(): TwigConfig
     {
         $this->getConfigHelper()->mockConfigMethod('getTemplatePaths', function () {

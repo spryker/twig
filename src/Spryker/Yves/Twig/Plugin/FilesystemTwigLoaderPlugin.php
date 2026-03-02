@@ -17,9 +17,6 @@ use Spryker\Yves\Kernel\AbstractPlugin;
  */
 class FilesystemTwigLoaderPlugin extends AbstractPlugin implements TwigLoaderPluginInterface
 {
-    /**
-     * @return \Spryker\Shared\Twig\Loader\FilesystemLoaderInterface
-     */
     public function getLoader(): FilesystemLoaderInterface
     {
         return $this->getFactory()->createFilesystemLoader();

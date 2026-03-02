@@ -14,9 +14,6 @@ use Spryker\Client\Kernel\AbstractFactory;
  */
 class TwigFactory extends AbstractFactory
 {
-    /**
-     * @return \Spryker\Client\Twig\TwigConfig
-     */
     public function getModuleConfig(): TwigConfig
     {
         return $this->getConfig();

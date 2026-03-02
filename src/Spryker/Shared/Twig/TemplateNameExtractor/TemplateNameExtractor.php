@@ -16,9 +16,6 @@ class TemplateNameExtractor implements TemplateNameExtractorInterface
      */
     protected $utilTextService;
 
-    /**
-     * @param \Spryker\Shared\Twig\Dependency\Service\TwigToUtilTextServiceInterface $utilTextService
-     */
     public function __construct(TwigToUtilTextServiceInterface $utilTextService)
     {
         $this->utilTextService = $utilTextService;

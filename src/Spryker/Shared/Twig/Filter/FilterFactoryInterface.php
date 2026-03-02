@@ -12,10 +12,5 @@ use Twig\TwigFilter;
 
 interface FilterFactoryInterface
 {
-    /**
-     * @param \Twig\Environment $twig
-     *
-     * @return \Twig\TwigFilter
-     */
     public function createExecuteFilterIfExistsFilter(Environment $twig): TwigFilter;
 }

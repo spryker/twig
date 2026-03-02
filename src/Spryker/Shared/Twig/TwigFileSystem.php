@@ -31,12 +31,6 @@ class TwigFileSystem extends FilesystemLoader
         }
     }
 
-    /**
-     * @param string $path
-     * @param string $namespace
-     *
-     * @return void
-     */
     public function addPath(string $path, string $namespace = self::MAIN_NAMESPACE): void
     {
         // invalidate the cache
@@ -44,12 +38,6 @@ class TwigFileSystem extends FilesystemLoader
         $this->paths[] = rtrim($path, '/\\');
     }
 
-    /**
-     * @param string $path
-     * @param string $namespace
-     *
-     * @return void
-     */
     public function prependPath(string $path, string $namespace = self::MAIN_NAMESPACE): void
     {
         // invalidate the cache

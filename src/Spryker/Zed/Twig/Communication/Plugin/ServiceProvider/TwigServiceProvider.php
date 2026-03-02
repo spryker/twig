@@ -152,12 +152,6 @@ class TwigServiceProvider extends AbstractPlugin implements ServiceProviderInter
         return $this->app->render('@' . $route . '.twig', $parameters);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param array $parameters
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     protected function renderTemplateFromRouterCache(Request $request, array $parameters): Response
     {
         return $this->app->render('@' . $request->attributes->get('_template') . '.twig', $parameters);

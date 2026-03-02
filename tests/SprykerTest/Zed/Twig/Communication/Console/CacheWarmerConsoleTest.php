@@ -26,9 +26,6 @@ use Symfony\Component\Console\Tester\CommandTester;
  */
 class CacheWarmerConsoleTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testCommandIsExecutable(): void
     {
         $application = new Application();

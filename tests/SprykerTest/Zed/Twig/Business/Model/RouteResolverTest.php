@@ -23,9 +23,6 @@ use Spryker\Zed\Twig\Business\Model\RouteResolver;
  */
 class RouteResolverTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testBuildRouteFromControllerServiceNameShouldReturnUri(): void
     {
         $routeResolver = new RouteResolver();
@@ -37,9 +34,6 @@ class RouteResolverTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testBuildRouteFromControllerServiceNameReturnUriFail(): void
     {
         $routeResolver = new RouteResolver();

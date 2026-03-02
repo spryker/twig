@@ -27,9 +27,6 @@ class CacheWarmerConsole extends Console
      */
     public const DESCRIPTION = 'This command will generate a cache file for twig templates';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         $this->setName(static::COMMAND_NAME);
@@ -38,12 +35,6 @@ class CacheWarmerConsole extends Console
         parent::configure();
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return int
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->getFacade()->warmUpCache();

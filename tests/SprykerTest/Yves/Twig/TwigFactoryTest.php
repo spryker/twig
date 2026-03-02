@@ -22,9 +22,6 @@ use Twig\Loader\LoaderInterface;
  */
 class TwigFactoryTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testCreateFilesystemLoaderReturnsLoaderInterface(): void
     {
         $twigFactory = new TwigFactory();

@@ -39,19 +39,12 @@ class TwigEventSubscriber implements EventSubscriberInterface
      */
     protected $routeResolver;
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     * @param \Spryker\Zed\Twig\Communication\RouteResolver\RouteResolverInterface $routeResolver
-     */
     public function __construct(ContainerInterface $container, RouteResolverInterface $routeResolver)
     {
         $this->container = $container;
         $this->routeResolver = $routeResolver;
     }
 
-    /**
-     * @return array
-     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -59,11 +52,6 @@ class TwigEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\ViewEvent $event
-     *
-     * @return void
-     */
     public function onKernelView(ViewEvent $event): void
     {
         $response = $event->getControllerResult();
@@ -99,12 +87,6 @@ class TwigEventSubscriber implements EventSubscriberInterface
         return $this->render($this->buildViewName($controller, $parameters), $parameters);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param array $parameters
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     protected function renderTemplateFromRouterCache(Request $request, array $parameters): Response
     {
         return $this->render(sprintf('@%s.twig', $request->attributes->get('_template')), $parameters);
@@ -155,17 +137,11 @@ class TwigEventSubscriber implements EventSubscriberInterface
             ->buildRouteFromControllerServiceName($controller);
     }
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\RequestStack
-     */
     protected function getRequestStack(): RequestStack
     {
         return $this->container->get(static::SERVICE_REQUEST_STACK);
     }
 
-    /**
-     * @return \Twig\Environment
-     */
     protected function getTwig(): Environment
     {
         return $this->container->get(static::SERVICE_TWIG);

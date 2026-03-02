@@ -34,9 +34,6 @@ class TwigToUtilTextServiceBridgeTest extends Unit
      */
     public const EXPECTED_STRING = 'string-to-convert';
 
-    /**
-     * @return void
-     */
     public function testCamelCaseToDashReturnConvertedString(): void
     {
         $utilTextService = new UtilTextService();

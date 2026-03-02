@@ -40,11 +40,6 @@ class TwigTemplateWarmingModeEventSubscriberPlugin extends AbstractPlugin implem
         ];
     }
 
-    /**
-     * @param \Symfony\Component\Console\Event\ConsoleCommandEvent $event
-     *
-     * @return void
-     */
     public function onConsoleCommand(ConsoleCommandEvent $event): void
     {
         $this->getContainer()->set(

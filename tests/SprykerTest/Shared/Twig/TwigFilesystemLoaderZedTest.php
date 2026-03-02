@@ -55,9 +55,6 @@ class TwigFilesystemLoaderZedTest extends Unit
      */
     public const CONTENT_CORE_3RD_PARTY_FILE = 'core zed 3rd party file' . PHP_EOL;
 
-    /**
-     * @return void
-     */
     public function testGetSourceReturnsContentFromProject(): void
     {
         $filesystemLoader = $this->getFilesystemLoader(static::PATH_TO_PROJECT);
@@ -65,9 +62,6 @@ class TwigFilesystemLoaderZedTest extends Unit
         $this->assertSame(static::CONTENT_PROJECT_FILE, $filesystemLoader->getSource('@Bundle/Controller/index.twig'));
     }
 
-    /**
-     * @return void
-     */
     public function testGetSourceReturnsContentFromCore(): void
     {
         $filesystemLoader = $this->getFilesystemLoader(static::PATH_TO_CORE);
@@ -75,9 +69,6 @@ class TwigFilesystemLoaderZedTest extends Unit
         $this->assertSame(static::CONTENT_CORE_FILE, $filesystemLoader->getSource('@Bundle/Controller/index.twig'));
     }
 
-    /**
-     * @return void
-     */
     public function testGetSourceReturnsContentFromCoreNonSplit(): void
     {
         $filesystemLoader = $this->getFilesystemLoader(static::PATH_TO_CORE_NON_SPLIT);
@@ -85,9 +76,6 @@ class TwigFilesystemLoaderZedTest extends Unit
         $this->assertSame(static::CONTENT_CORE_NON_SPLIT_FILE, $filesystemLoader->getSource('Bundle/Controller/index.twig'));
     }
 
-    /**
-     * @return void
-     */
     public function testGetSourceReturnsContentFrom3rdParty(): void
     {
         $filesystemLoader = $this->getFilesystemLoader(static::PATH_TO_CORE_3RD_PARTY);
@@ -95,9 +83,6 @@ class TwigFilesystemLoaderZedTest extends Unit
         $this->assertSame(static::CONTENT_CORE_3RD_PARTY_FILE, $filesystemLoader->getSource('@Bundle/Controller/index.twig'));
     }
 
-    /**
-     * @return void
-     */
     public function testGetSourceReturnsContentFrom3rdPartyAndConvertsBundleNameToPackageNameInSplit(): void
     {
         $filesystemLoader = $this->getFilesystemLoaderForSplitBundleConverterTest();
@@ -120,17 +105,11 @@ class TwigFilesystemLoaderZedTest extends Unit
         return $mock;
     }
 
-    /**
-     * @return \Spryker\Shared\Twig\Cache\CacheInterface
-     */
     protected function getCacheStub(): CacheInterface
     {
         return new CacheStub();
     }
 
-    /**
-     * @return \Spryker\Shared\Twig\TemplateNameExtractor\TemplateNameExtractorInterface
-     */
     protected function getTemplateNameExtractor(): TemplateNameExtractorInterface
     {
         $twigToUtilTextBridge = new TwigToUtilTextServiceBridge(new UtilTextService());
@@ -139,12 +118,6 @@ class TwigFilesystemLoaderZedTest extends Unit
         return $templateNameExtractor;
     }
 
-    /**
-     * @param string $path
-     * @param \Spryker\Shared\Twig\Cache\CacheInterface|null $cache
-     *
-     * @return \Spryker\Shared\Twig\TwigFilesystemLoader
-     */
     protected function getFilesystemLoader(string $path, ?CacheInterface $cache = null): TwigFilesystemLoader
     {
         if (!$cache) {

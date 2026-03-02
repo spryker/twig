@@ -24,9 +24,6 @@ use Spryker\Shared\Twig\Cache\CacheWriterInterface;
  */
 class FilesystemCacheWriterTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         if (is_file($this->getCacheFile())) {
@@ -37,9 +34,6 @@ class FilesystemCacheWriterTest extends Unit
         }
     }
 
-    /**
-     * @return string
-     */
     protected function getCacheFile(): string
     {
         $cacheDirectory = $this->getCacheDirectory();
@@ -47,17 +41,11 @@ class FilesystemCacheWriterTest extends Unit
         return $cacheDirectory . 'cache.php';
     }
 
-    /**
-     * @return string
-     */
     protected function getCacheDirectory(): string
     {
         return __DIR__ . DIRECTORY_SEPARATOR . 'test_files' . DIRECTORY_SEPARATOR;
     }
 
-    /**
-     * @return void
-     */
     public function testCanBeInstantiatedWIthPathToCacheFile(): void
     {
         $cacheWriter = new FilesystemCacheWriter($this->getCacheFile(), 0777);
@@ -65,9 +53,6 @@ class FilesystemCacheWriterTest extends Unit
         $this->assertInstanceOf(CacheWriterInterface::class, $cacheWriter);
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCreatesDirectoryIfItDoesNotExists(): void
     {
         $this->assertFalse(is_dir($this->getCacheDirectory()), 'Cache directory exists, make sure you cleanup before test');

@@ -26,9 +26,6 @@ class TwigConfigTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function testGetTemplatePathsShouldReturnOnlyDefaultTemplatePaths(): void
     {
         $this->tester->mockConfigMethod('getProjectNamespaces', ['Foo']);
@@ -57,9 +54,6 @@ class TwigConfigTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testGetTemplatePathsShouldReturnOnlyDefaultTemplatePathsWhenThemeNameEqualsDefaultThemeName(): void
     {
         $this->tester->mockConfigMethod('getThemeName', 'default');
@@ -89,9 +83,6 @@ class TwigConfigTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testGetTemplatePathsShouldReturnCustomAndDefaultTemplatePaths(): void
     {
         $this->tester->mockConfigMethod('getThemeName', 'custom');
@@ -126,27 +117,18 @@ class TwigConfigTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testGetCacheFilePathReturnsString(): void
     {
         $twigConfig = new TwigConfig();
         $this->assertIsString($twigConfig->getCacheFilePath());
     }
 
-    /**
-     * @return void
-     */
     public function testIsPathCacheEnabledReturnsBoolean(): void
     {
         $twigConfig = new TwigConfig();
         $this->assertIsBool($twigConfig->isPathCacheEnabled());
     }
 
-    /**
-     * @return \Spryker\Yves\Twig\TwigConfig
-     */
     public function getModuleConfig(): TwigConfig
     {
         return $this->tester->getModuleConfig();

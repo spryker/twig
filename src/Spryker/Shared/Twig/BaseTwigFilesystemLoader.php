@@ -123,12 +123,6 @@ abstract class BaseTwigFilesystemLoader implements FilesystemLoaderInterface
         return $paths;
     }
 
-    /**
-     * @param string $path
-     * @param string $theme
-     *
-     * @return string
-     */
     protected function changeThemeInPath(string $path, string $theme): string
     {
         $themePart = '/Theme/';
@@ -138,11 +132,6 @@ abstract class BaseTwigFilesystemLoader implements FilesystemLoaderInterface
         return implode($themePart, $parts);
     }
 
-    /**
-     * @param string $organizationModule
-     *
-     * @return string|null
-     */
     protected function extractOrganization(string $organizationModule): ?string
     {
         if (strpos($organizationModule, ':') === false) {
@@ -154,11 +143,6 @@ abstract class BaseTwigFilesystemLoader implements FilesystemLoaderInterface
         return current($organizationModule);
     }
 
-    /**
-     * @param string $organizationModule
-     *
-     * @return string|null
-     */
     protected function extractModule(string $organizationModule): ?string
     {
         if (strpos($organizationModule, ':') === false) {
@@ -170,11 +154,6 @@ abstract class BaseTwigFilesystemLoader implements FilesystemLoaderInterface
         return $organizationModule[static::COMPONENT_DEFINITION_INDEX_MODULE] ?? null;
     }
 
-    /**
-     * @param string $organizationModule
-     *
-     * @return string|null
-     */
     protected function extractTheme(string $organizationModule): ?string
     {
         if (strpos($organizationModule, ':') === false) {
@@ -186,12 +165,6 @@ abstract class BaseTwigFilesystemLoader implements FilesystemLoaderInterface
         return $organizationModule[static::COMPONENT_DEFINITION_INDEX_THEME] ?? null;
     }
 
-    /**
-     * @param string $path
-     * @param string|null $organization
-     *
-     * @return string
-     */
     protected function getNamespacedPath(string $path, ?string $organization): string
     {
         if ($organization === null) {

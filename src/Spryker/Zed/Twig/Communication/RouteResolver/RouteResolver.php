@@ -26,11 +26,6 @@ class RouteResolver implements RouteResolverInterface
      */
     protected const SERVICE_NAME_INDEX_TEMPLATE_NAME = 4;
 
-    /**
-     * @param string $controllerServiceName
-     *
-     * @return string
-     */
     public function buildRouteFromControllerServiceName(string $controllerServiceName): string
     {
         [$serviceName, $actionName] = explode(':', $controllerServiceName);

@@ -65,11 +65,6 @@ class TwigDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addTwigPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_TWIG, function (Container $container) {
@@ -87,11 +82,6 @@ class TwigDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addTwigGatewayPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_TWIG_GATEWAY, function (Container $container) {
@@ -109,11 +99,6 @@ class TwigDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addTwigLoaderPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_TWIG_LOADER, function (Container $container) {

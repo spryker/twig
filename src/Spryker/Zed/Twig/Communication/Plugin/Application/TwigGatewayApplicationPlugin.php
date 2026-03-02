@@ -17,12 +17,6 @@ use Twig\Environment;
  */
 class TwigGatewayApplicationPlugin extends TwigApplicationPlugin
 {
-    /**
-     * @param \Twig\Environment $twig
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Twig\Environment
-     */
     protected function extendTwig(Environment $twig, ContainerInterface $container): Environment
     {
         $twigPlugins = $this->getFactory()->getTwigGatewayPlugins();

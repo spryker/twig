@@ -28,156 +28,96 @@ class TwigYvesTester extends Actor
 {
     use _generated\TwigYvesTesterActions;
 
-    /**
-     * @param array $templatePaths
-     * @param array $expectedPaths
-     *
-     * @return void
-     */
     public function assertPathsInOrder(array $templatePaths, array $expectedPaths): void
     {
         $this->assertSame($expectedPaths, $templatePaths);
     }
 
-    /**
-     * @return string
-     */
     public function getDefaultPathProjectWithStore(): string
     {
         return rtrim(APPLICATION_ROOT_DIR, '/') . '/src/Foo/Yves/%s' . APPLICATION_CODE_BUCKET . '/Theme/default';
     }
 
-    /**
-     * @return string
-     */
     public function getDefaultPathProjectWithoutStore(): string
     {
         return rtrim(APPLICATION_ROOT_DIR, '/') . '/src/Foo/Yves/%s/Theme/default';
     }
 
-    /**
-     * @return string
-     */
     public function getCustomPathProjectWithStore(): string
     {
         return rtrim(APPLICATION_ROOT_DIR, '/') . '/src/Foo/Yves/%s' . APPLICATION_CODE_BUCKET . '/Theme/custom';
     }
 
-    /**
-     * @return string
-     */
     public function getCustomPathProjectWithoutStore(): string
     {
         return rtrim(APPLICATION_ROOT_DIR, '/') . '/src/Foo/Yves/%s/Theme/custom';
     }
 
-    /**
-     * @return string
-     */
     public function getDefaultPathProjectSharedWithStore(): string
     {
         return rtrim(APPLICATION_ROOT_DIR, '/') . '/src/Foo/Shared/%s' . APPLICATION_CODE_BUCKET . '/Theme/default';
     }
 
-    /**
-     * @return string
-     */
     public function getDefaultPathProjectSharedWithoutStore(): string
     {
         return rtrim(APPLICATION_ROOT_DIR, '/') . '/src/Foo/Shared/%s/Theme/default';
     }
 
-    /**
-     * @return string
-     */
     public function getCustomPathProjectSharedWithStore(): string
     {
         return rtrim(APPLICATION_ROOT_DIR, '/') . '/src/Foo/Shared/%s' . APPLICATION_CODE_BUCKET . '/Theme/custom';
     }
 
-    /**
-     * @return string
-     */
     public function getCustomPathProjectSharedWithoutStore(): string
     {
         return rtrim(APPLICATION_ROOT_DIR, '/') . '/src/Foo/Shared/%s/Theme/custom';
     }
 
-    /**
-     * @return string
-     */
     public function getPathSprykerShop(): string
     {
         return rtrim(APPLICATION_VENDOR_DIR, '/') . '/*/*/src/SprykerShop/Yves/%s/Theme/default';
     }
 
-    /**
-     * @return string
-     */
     public function getPathSprykerShopShared(): string
     {
         return rtrim(APPLICATION_VENDOR_DIR, '/') . '/*/*/src/SprykerShop/Shared/%s/Theme/default';
     }
 
-    /**
-     * @return string
-     */
     public function getPathSpryker(): string
     {
         return rtrim(APPLICATION_VENDOR_DIR, '/') . '/*/*/src/Spryker/Yves/%s/Theme/default';
     }
 
-    /**
-     * @return string
-     */
     public function getPathSprykerFeature(): string
     {
         return rtrim(APPLICATION_VENDOR_DIR, '/') . '/*/*/src/SprykerFeature/Yves/%s/Theme/default';
     }
 
-    /**
-     * @return string
-     */
     public function getPathSprykerShared(): string
     {
         return rtrim(APPLICATION_VENDOR_DIR, '/') . '/*/*/src/Spryker/Shared/%s/Theme/default';
     }
 
-    /**
-     * @return string
-     */
     public function getPathSprykerFeatureShared(): string
     {
         return rtrim(APPLICATION_VENDOR_DIR, '/') . '/*/*/src/SprykerFeature/Shared/%s/Theme/default';
     }
 
-    /**
-     * @return string
-     */
     public function getPathSprykerEco(): string
     {
         return rtrim(APPLICATION_VENDOR_DIR, '/') . '/*/*/src/SprykerEco/Yves/%s/Theme/default';
     }
 
-    /**
-     * @return string
-     */
     public function getPathSprykerEcoShared(): string
     {
         return rtrim(APPLICATION_VENDOR_DIR, '/') . '/*/*/src/SprykerEco/Shared/%s/Theme/default';
     }
 
-    /**
-     * @return string
-     */
     public function getPathSprykerSdk(): string
     {
         return rtrim(APPLICATION_VENDOR_DIR, '/') . '/*/*/src/SprykerSdk/Yves/%s/Theme/default';
     }
 
-    /**
-     * @return string
-     */
     public function getPathSprykerSdkShared(): string
     {
         return rtrim(APPLICATION_VENDOR_DIR, '/') . '/*/*/src/SprykerSdk/Shared/%s/Theme/default';

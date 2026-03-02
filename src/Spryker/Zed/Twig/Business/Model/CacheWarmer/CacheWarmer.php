@@ -23,10 +23,6 @@ class CacheWarmer implements CacheWarmerInterface
      */
     protected $templatePathMapBuilder;
 
-    /**
-     * @param \Spryker\Shared\Twig\Cache\CacheWriterInterface $cacheWriter
-     * @param \Spryker\Zed\Twig\Business\Model\TemplatePathMapBuilderInterface $templatePathMapBuilder
-     */
     public function __construct(CacheWriterInterface $cacheWriter, TemplatePathMapBuilderInterface $templatePathMapBuilder)
     {
         $this->cacheWriter = $cacheWriter;

@@ -23,10 +23,6 @@ class FilesystemCacheWriter implements CacheWriterInterface
      */
     protected $permissionMode;
 
-    /**
-     * @param string $cacheFilePath
-     * @param int $permissionMode
-     */
     public function __construct(string $cacheFilePath, int $permissionMode)
     {
         $this->cacheFilePath = $cacheFilePath;

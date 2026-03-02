@@ -40,9 +40,6 @@ class TemplateNameBuilderYvesTest extends Unit
         $this->assertSame($expectedTemplateName, $templateNameBuilder->buildTemplateName($path));
     }
 
-    /**
-     * @return array
-     */
     public function pathDataProvider(): array
     {
         return [
@@ -68,9 +65,6 @@ class TemplateNameBuilderYvesTest extends Unit
         $this->assertSame($expectedTemplateName, $templateNameBuilder->buildNamespacedTemplateName($path));
     }
 
-    /**
-     * @return array
-     */
     public function namespacedPathDataProvider(): array
     {
         return [

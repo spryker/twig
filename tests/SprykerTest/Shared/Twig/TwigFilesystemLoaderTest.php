@@ -54,9 +54,6 @@ class TwigFilesystemLoaderTest extends Unit
      */
     public const TEMPLATE_NAME = '@Bundle/Controller/index.twig';
 
-    /**
-     * @return void
-     */
     public function testCanBeConstructedWithTemplatePathsArray(): void
     {
         $templatePaths = [];
@@ -65,9 +62,6 @@ class TwigFilesystemLoaderTest extends Unit
         $this->assertInstanceOf(LoaderInterface::class, $filesystemLoader);
     }
 
-    /**
-     * @return void
-     */
     public function testGetSourceReturnsFileFromCache(): void
     {
         $cache = $this->getCacheStub();
@@ -77,9 +71,6 @@ class TwigFilesystemLoaderTest extends Unit
         $this->assertSame(static::CONTENT_CACHED_FILE, $filesystemLoader->getSource('@CachedBundle/Controller/index.twig'));
     }
 
-    /**
-     * @return void
-     */
     public function testGetSourceThrowsExceptionWhenPathInCacheMarkedAsInvalid(): void
     {
         $cache = $this->getCacheStub();
@@ -130,9 +121,6 @@ class TwigFilesystemLoaderTest extends Unit
         $this->assertSame($expectedContent, $content);
     }
 
-    /**
-     * @return void
-     */
     public function testGetSourceThrowsExceptionWhenFileNotExists(): void
     {
         $filesystemLoader = $this->getFilesystemLoader(static::PATH_TO_ZED_PROJECT);
@@ -143,9 +131,6 @@ class TwigFilesystemLoaderTest extends Unit
         $filesystemLoader->getSource('@Bundle/NotExistent/index.twig');
     }
 
-    /**
-     * @return void
-     */
     public function testIsPathInSplit(): void
     {
         $filesystemLoader = $this->getFilesystemLoader(static::PATH_TO_ZED_PROJECT);
@@ -161,9 +146,6 @@ class TwigFilesystemLoaderTest extends Unit
         $this->assertTrue($result);
     }
 
-    /**
-     * @return void
-     */
     public function testGetSourceThrowsExceptionWhenNameDoesNotContainControllerAndTemplateNameInfo(): void
     {
         $filesystemLoader = $this->getFilesystemLoader(static::PATH_TO_ZED_PROJECT);
@@ -174,9 +156,6 @@ class TwigFilesystemLoaderTest extends Unit
         $filesystemLoader->getSource('@Bundle');
     }
 
-    /**
-     * @return void
-     */
     public function testIsFreshReturnsTrueWhenFileIsFresh(): void
     {
         $filesystemLoader = $this->getFilesystemLoader(static::PATH_TO_ZED_PROJECT);
@@ -185,9 +164,6 @@ class TwigFilesystemLoaderTest extends Unit
         $this->assertTrue($filesystemLoader->isFresh(static::TEMPLATE_NAME, $time));
     }
 
-    /**
-     * @return void
-     */
     public function testIsFreshReturnsFalseWhenFileIsNotFresh(): void
     {
         $filesystemLoader = $this->getFilesystemLoader(static::PATH_TO_ZED_PROJECT);
@@ -196,9 +172,6 @@ class TwigFilesystemLoaderTest extends Unit
         $this->assertFalse($filesystemLoader->isFresh(static::TEMPLATE_NAME, $time));
     }
 
-    /**
-     * @return void
-     */
     public function testGetCacheKeyReturnsPathToTemplate(): void
     {
         $filesystemLoader = $this->getFilesystemLoader(static::PATH_TO_ZED_PROJECT);
@@ -207,17 +180,11 @@ class TwigFilesystemLoaderTest extends Unit
         $this->assertSame(static::PATH_TO_ZED_PROJECT . '/Controller/index.twig', $cacheKey);
     }
 
-    /**
-     * @return \Spryker\Shared\Twig\Cache\CacheInterface
-     */
     protected function getCacheStub(): CacheInterface
     {
         return new CacheStub();
     }
 
-    /**
-     * @return \Spryker\Shared\Twig\TemplateNameExtractor\TemplateNameExtractorInterface
-     */
     protected function getTemplateNameExtractor(): TemplateNameExtractorInterface
     {
         $twigToUtilTextBridge = new TwigToUtilTextServiceBridge(new UtilTextService());

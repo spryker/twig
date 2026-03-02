@@ -24,9 +24,6 @@ use Spryker\Shared\Twig\Cache\CacheLoaderInterface;
  */
 class FilesystemCacheLoaderTest extends Unit
 {
-    /**
-     * @return string
-     */
     protected function getCacheFile(): string
     {
         $cacheDirectory = $this->getCacheDirectory();
@@ -34,17 +31,11 @@ class FilesystemCacheLoaderTest extends Unit
         return $cacheDirectory . 'cache.php';
     }
 
-    /**
-     * @return string
-     */
     protected function getCacheDirectory(): string
     {
         return __DIR__ . DIRECTORY_SEPARATOR . 'test_files' . DIRECTORY_SEPARATOR;
     }
 
-    /**
-     * @return void
-     */
     public function testCanBeInstantiatedWithPathToCacheFile(): void
     {
         $cacheLoader = new FilesystemCacheLoader($this->getCacheFile());
@@ -52,9 +43,6 @@ class FilesystemCacheLoaderTest extends Unit
         $this->assertInstanceOf(CacheLoaderInterface::class, $cacheLoader);
     }
 
-    /**
-     * @return void
-     */
     public function testLoadReturnsEmptyArrayIfCacheFileNotPresent(): void
     {
         $cacheLoader = new FilesystemCacheLoader(__DIR__ . '/invalidFile');
@@ -62,9 +50,6 @@ class FilesystemCacheLoaderTest extends Unit
         $this->assertCount(0, $cacheLoader->load());
     }
 
-    /**
-     * @return void
-     */
     public function testLoadReturnsCacheArrayIfCacheFilePresent(): void
     {
         $cacheLoader = new FilesystemCacheLoader($this->getCacheFile());

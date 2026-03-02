@@ -17,11 +17,6 @@ class FilterFactory implements FilterFactoryInterface
      */
     protected const EXECUTE_FILTER_IF_EXISTS_FILTER_NAME = 'executeFilterIfExists';
 
-    /**
-     * @param \Twig\Environment $twig
-     *
-     * @return \Twig\TwigFilter
-     */
     public function createExecuteFilterIfExistsFilter(Environment $twig): TwigFilter
     {
         return new TwigFilter(

@@ -22,9 +22,6 @@ use Spryker\Yves\Twig\TwigDependencyProvider;
  */
 class TwigDependencyProviderTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testUtilTextServiceIsAdded(): void
     {
         $container = new Container();

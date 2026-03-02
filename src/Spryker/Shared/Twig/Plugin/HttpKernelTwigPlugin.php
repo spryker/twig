@@ -59,11 +59,6 @@ class HttpKernelTwigPlugin implements TwigPluginInterface
         return $twig;
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Symfony\Component\HttpKernel\Fragment\HIncludeFragmentRenderer
-     */
     protected function getFragmentRendererHinclude(ContainerInterface $container): HIncludeFragmentRenderer
     {
         return $container->get(static::SERVICE_FRAGMENT_RENDERER_HINCLUDE);

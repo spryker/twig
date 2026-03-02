@@ -51,11 +51,6 @@ class TwigApplicationPlugin extends AbstractPlugin implements ApplicationPluginI
         return $container;
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Spryker\Service\Container\ContainerInterface
-     */
     protected function addTwigService(ContainerInterface $container): ContainerInterface
     {
         $container->set(static::SERVICE_TWIG, function (ContainerInterface $container) {
@@ -75,9 +70,6 @@ class TwigApplicationPlugin extends AbstractPlugin implements ApplicationPluginI
         return $container;
     }
 
-    /**
-     * @return \Twig\Loader\ChainLoader
-     */
     protected function getChainLoader(): ChainLoader
     {
         $chainLoader = $this->getFactory()->createChainLoader();
@@ -89,12 +81,6 @@ class TwigApplicationPlugin extends AbstractPlugin implements ApplicationPluginI
         return $chainLoader;
     }
 
-    /**
-     * @param \Twig\Environment $twig
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Twig\Environment
-     */
     protected function extendTwig(Environment $twig, ContainerInterface $container): Environment
     {
         $twigPlugins = $this->getFactory()->getTwigPlugins();
@@ -105,11 +91,6 @@ class TwigApplicationPlugin extends AbstractPlugin implements ApplicationPluginI
         return $twig;
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return array
-     */
     protected function getTwigOptions(ContainerInterface $container): array
     {
         $isDebugOn = $container->has(static::SERVICE_DEBUG) && $container->get(static::SERVICE_DEBUG);
@@ -123,11 +104,6 @@ class TwigApplicationPlugin extends AbstractPlugin implements ApplicationPluginI
         return array_replace($globalOptions, $twigOptions);
     }
 
-    /**
-     * @param \Twig\Environment $twig
-     *
-     * @return \Twig\Environment
-     */
     protected function addGlobalTwigFilters(Environment $twig): Environment
     {
         return $this->getFactory()->createFilterExtender()->extend($twig);

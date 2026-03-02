@@ -66,17 +66,11 @@ class TwigCommunicationFactory extends AbstractCommunicationFactory
         return $this->getProvidedDependency(TwigDependencyProvider::PLUGINS_TWIG_GATEWAY);
     }
 
-    /**
-     * @return \Twig\Loader\ChainLoader
-     */
     public function createChainLoader(): ChainLoader
     {
         return new ChainLoader();
     }
 
-    /**
-     * @return \Spryker\Shared\Twig\Loader\FilesystemLoaderInterface
-     */
     public function createTwigFilesystemLoader(): FilesystemLoaderInterface
     {
         return new FilesystemLoader($this->getConfig()->getFormTemplateDirectories());
@@ -90,19 +84,11 @@ class TwigCommunicationFactory extends AbstractCommunicationFactory
         return $this->getProvidedDependency(TwigDependencyProvider::PLUGINS_TWIG_LOADER);
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Symfony\Component\EventDispatcher\EventSubscriberInterface
-     */
     public function createTwigEventSubscriber(ContainerInterface $container): EventSubscriberInterface
     {
         return new TwigEventSubscriber($container, $this->createRouteResolver());
     }
 
-    /**
-     * @return \Spryker\Zed\Twig\Communication\RouteResolver\RouteResolverInterface
-     */
     public function createRouteResolver(): RouteResolverInterface
     {
         return new RouteResolver();
@@ -122,9 +108,6 @@ class TwigCommunicationFactory extends AbstractCommunicationFactory
         return $filesystemLoaderCache;
     }
 
-    /**
-     * @return \Spryker\Shared\Twig\Cache\CacheLoaderInterface
-     */
     public function createFilesystemCacheLoader(): CacheLoaderInterface
     {
         return new FilesystemCacheLoader($this->getConfig()->getCacheFilePath());
@@ -157,9 +140,6 @@ class TwigCommunicationFactory extends AbstractCommunicationFactory
         return $this->getProvidedDependency(TwigDependencyProvider::SERVICE_UTIL_TEXT);
     }
 
-    /**
-     * @return \Spryker\Shared\Twig\Extender\FilterExtenderInterface
-     */
     public function createFilterExtender(): FilterExtenderInterface
     {
         return new FilterExtender(
@@ -168,25 +148,16 @@ class TwigCommunicationFactory extends AbstractCommunicationFactory
         );
     }
 
-    /**
-     * @return \Spryker\Shared\Twig\Filter\FilterFactoryInterface
-     */
     public function createFilterFactory(): FilterFactoryInterface
     {
         return new FilterFactory();
     }
 
-    /**
-     * @return \Spryker\Shared\Twig\Extension\EnvironmentCoreExtensionInterface
-     */
     public function createEnvironmentCoreExtension(): EnvironmentCoreExtensionInterface
     {
         return new EnvironmentCoreExtension();
     }
 
-    /**
-     * @return \Twig\Environment
-     */
     public function getTwigEnvironment(): Environment
     {
         return $this->getContainer()->getApplicationService(TwigApplicationPlugin::SERVICE_TWIG);

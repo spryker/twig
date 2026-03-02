@@ -53,11 +53,6 @@ class EnvironmentCoreExtension implements EnvironmentCoreExtensionInterface
         'apache_setenv',
     ];
 
-    /**
-     * @param \Twig\Environment $twig
-     *
-     * @return \Twig\Environment
-     */
     public function extend(Environment $twig): Environment
     {
         foreach ($this->getFilters() as $filter) {

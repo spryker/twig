@@ -65,9 +65,6 @@ class TwigFactory extends AbstractFactory
         return $filesystemLoaderCache;
     }
 
-    /**
-     * @return \Spryker\Shared\Twig\Cache\CacheLoaderInterface
-     */
     public function createFilesystemCacheLoader(): CacheLoaderInterface
     {
         return new FilesystemCacheLoader($this->getConfig()->getCacheFilePath());
@@ -100,25 +97,16 @@ class TwigFactory extends AbstractFactory
         return $this->getProvidedDependency(TwigDependencyProvider::SERVICE_UTIL_TEXT);
     }
 
-    /**
-     * @return \Twig\Loader\ChainLoader
-     */
     public function createChainLoader(): ChainLoader
     {
         return new ChainLoader();
     }
 
-    /**
-     * @return \Spryker\Shared\Twig\Loader\FilesystemLoaderInterface
-     */
     public function createTwigFilesystemLoader(): FilesystemLoaderInterface
     {
         return new FilesystemLoader($this->getConfig()->getFormTemplateDirectories());
     }
 
-    /**
-     * @return \Spryker\Shared\Twig\Extender\FilterExtenderInterface
-     */
     public function createFilterExtender(): FilterExtenderInterface
     {
         return new FilterExtender(
@@ -127,17 +115,11 @@ class TwigFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Shared\Twig\Filter\FilterFactoryInterface
-     */
     public function createFilterFactory(): FilterFactoryInterface
     {
         return new FilterFactory();
     }
 
-    /**
-     * @return \Spryker\Shared\Twig\Extension\EnvironmentCoreExtensionInterface
-     */
     public function createEnvironmentCoreExtension(): EnvironmentCoreExtensionInterface
     {
         return new EnvironmentCoreExtension();
@@ -151,9 +133,6 @@ class TwigFactory extends AbstractFactory
         return $this->getProvidedDependency(TwigDependencyProvider::PLUGINS_TWIG_LOADER);
     }
 
-    /**
-     * @return \Twig\Environment
-     */
     public function getTwigEnvironment(): Environment
     {
         return $this->getContainer()->getApplicationService(TwigApplicationPlugin::SERVICE_TWIG);

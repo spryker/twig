@@ -40,9 +40,6 @@ class TemplateNameExtractorTest extends Unit
         $this->assertSame($expectedBundleName, $templateNameExtractor->extractBundleName($templateName));
     }
 
-    /**
-     * @return array
-     */
     public function nameDataProviderForBundle(): array
     {
         return [
@@ -69,9 +66,6 @@ class TemplateNameExtractorTest extends Unit
         $this->assertSame($expectedBundleName, $templateNameExtractor->extractTemplatePath($templateName));
     }
 
-    /**
-     * @return array
-     */
     public function nameDataProviderForTemplatePath(): array
     {
         return [
@@ -82,9 +76,6 @@ class TemplateNameExtractorTest extends Unit
         ];
     }
 
-    /**
-     * @return \Spryker\Shared\Twig\Dependency\Service\TwigToUtilTextServiceInterface
-     */
     protected function getUtilTextService(): TwigToUtilTextServiceInterface
     {
         return new TwigToUtilTextServiceBridge(new UtilTextService());

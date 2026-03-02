@@ -59,11 +59,6 @@ class TwigDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Yves\Kernel\Container $container
-     *
-     * @return \Spryker\Yves\Kernel\Container
-     */
     protected function addTwigPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_TWIG, function (Container $container) {
@@ -81,11 +76,6 @@ class TwigDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Yves\Kernel\Container $container
-     *
-     * @return \Spryker\Yves\Kernel\Container
-     */
     protected function addTwigLoaderPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_TWIG_LOADER, function (Container $container) {

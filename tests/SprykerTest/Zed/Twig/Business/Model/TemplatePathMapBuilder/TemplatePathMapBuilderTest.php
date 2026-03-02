@@ -27,9 +27,6 @@ use Symfony\Component\Finder\Finder;
  */
 class TemplatePathMapBuilderTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testCanBeInstantiated(): void
     {
         $templateNameBuilder = $this->getTemplateNameBuilderMock();
@@ -39,9 +36,6 @@ class TemplatePathMapBuilderTest extends Unit
         $this->assertInstanceOf(TemplatePathMapBuilderInterface::class, $templateFinder);
     }
 
-    /**
-     * @return void
-     */
     public function testBuildReturnsArray(): void
     {
         $templateNameBuilder = $this->getTemplateNameBuilderMock();
@@ -64,9 +58,6 @@ class TemplatePathMapBuilderTest extends Unit
         return $mockBuilder->getMock();
     }
 
-    /**
-     * @return string
-     */
     protected function getFixtureDirectory(): string
     {
         return __DIR__ . '/Fixtures';

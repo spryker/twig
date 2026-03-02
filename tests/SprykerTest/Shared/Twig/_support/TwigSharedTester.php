@@ -34,11 +34,6 @@ class TwigSharedTester extends Actor
      */
     public const ENVIRONMENT_FILTERS = ['sort', 'filter', 'map', 'reduce', 'find'];
 
-    /**
-     * @param \Twig\Loader\LoaderInterface|null $loader
-     *
-     * @return \Twig\Environment
-     */
     public function createTwigEnvironment(?LoaderInterface $loader = null): Environment
     {
         return new Environment($loader);

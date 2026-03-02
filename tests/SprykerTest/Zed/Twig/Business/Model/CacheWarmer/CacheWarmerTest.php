@@ -27,9 +27,6 @@ use Spryker\Zed\Twig\Business\Model\TemplatePathMapBuilderInterface;
  */
 class CacheWarmerTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testCanBeInstantiated(): void
     {
         $cacheWriterMock = $this->getCacheWriterMock();
@@ -38,9 +35,6 @@ class CacheWarmerTest extends Unit
         $this->assertInstanceOf(CacheWarmerInterface::class, $cacheWarmer);
     }
 
-    /**
-     * @return void
-     */
     public function testWarmUpCallsTemplatePathMapBuilderAndCacheWriter(): void
     {
         $cacheWriterMock = $this->getCacheWriterMock();

@@ -9,10 +9,5 @@ namespace Spryker\Zed\Twig\Communication\RouteResolver;
 
 interface RouteResolverInterface
 {
-    /**
-     * @param string $controllerServiceName
-     *
-     * @return string
-     */
     public function buildRouteFromControllerServiceName(string $controllerServiceName): string;
 }
