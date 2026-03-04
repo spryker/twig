@@ -19,11 +19,6 @@ abstract class AbstractTwigExtensionPlugin extends AbstractPlugin implements Twi
      * {@inheritDoc}
      *
      * @api
-     *
-     * @param \Twig\Environment $twig
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Twig\Environment
      */
     public function extend(Environment $twig, ContainerInterface $container): Environment
     {
@@ -34,8 +29,6 @@ abstract class AbstractTwigExtensionPlugin extends AbstractPlugin implements Twi
 
     /**
      * @deprecated since 1.23 (to be removed in 2.0), implement \Twig\Extension\InitRuntimeInterface instead.
-     *
-     * @param \Twig\Environment $environment
      *
      * @return void
      */
@@ -83,6 +76,16 @@ abstract class AbstractTwigExtensionPlugin extends AbstractPlugin implements Twi
         return [];
     }
 
+    /**
+     * Returns a list of operators to add to the existing list.
+     *
+     * @psalm-return array{
+     *     array<string, array{precedence: int, precedence_change?: \Twig\ExpressionParser\PrecedenceChange, class: class-string<\Spryker\Service\Twig\Plugin\AbstractUnary>}>,
+     *     array<string, array{precedence: int, precedence_change?: \Spryker\Service\Twig\Plugin\PrecedenceChange, class?: class-string<\Spryker\Service\Twig\Plugin\AbstractBinary>, associativity: \Spryker\Service\Twig\Plugin\ExpressionParser::OPERATOR_*}>
+     * }
+     *
+     * @return array<array>
+     */
     public function getOperators(): array
     {
         if (version_compare(Environment::VERSION, '3.21.0', '>=')) {
