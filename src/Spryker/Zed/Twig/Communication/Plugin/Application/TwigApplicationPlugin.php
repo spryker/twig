@@ -37,12 +37,12 @@ class TwigApplicationPlugin extends AbstractPlugin implements ApplicationPluginI
 
     /**
      * {@inheritDoc}
+     * - Registers the Twig environment as a lazy service under SERVICE_TWIG in the container.
+     * - Adds the `configurationValue` Twig function for reading module configuration values.
+     * - Adds the `configurationValues` Twig function for reading module configuration values by prefix.
+     * - Runs all registered TwigPlugins via extendTwig().
      *
      * @api
-     *
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Spryker\Service\Container\ContainerInterface
      */
     public function provide(ContainerInterface $container): ContainerInterface
     {
@@ -61,13 +61,28 @@ class TwigApplicationPlugin extends AbstractPlugin implements ApplicationPluginI
             $twig->addGlobal('app', $container);
 
             $twig = $this->addGlobalTwigFilters($twig);
-
+            $twig = $this->addConfigurationValueTwigFunction($twig);
+            $twig = $this->addConfigurationValuesTwigFunction($twig);
             $twig = $this->extendTwig($twig, $container);
 
             return $twig;
         });
 
         return $container;
+    }
+
+    protected function addConfigurationValueTwigFunction(Environment $twig): Environment
+    {
+        $twig->addFunction($this->getFactory()->createConfigurationValueTwigFunction());
+
+        return $twig;
+    }
+
+    protected function addConfigurationValuesTwigFunction(Environment $twig): Environment
+    {
+        $twig->addFunction($this->getFactory()->createConfigurationValuesTwigFunction());
+
+        return $twig;
     }
 
     protected function getChainLoader(): ChainLoader

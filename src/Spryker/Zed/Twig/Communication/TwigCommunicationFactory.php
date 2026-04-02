@@ -22,15 +22,19 @@ use Spryker\Shared\Twig\Loader\FilesystemLoader;
 use Spryker\Shared\Twig\Loader\FilesystemLoaderInterface;
 use Spryker\Shared\Twig\TemplateNameExtractor\TemplateNameExtractor;
 use Spryker\Shared\Twig\TwigFilesystemLoader;
+use Spryker\Shared\Twig\TwigFunctionProvider;
 use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
 use Spryker\Zed\Twig\Communication\Plugin\Application\TwigApplicationPlugin;
 use Spryker\Zed\Twig\Communication\RouteResolver\RouteResolver;
 use Spryker\Zed\Twig\Communication\RouteResolver\RouteResolverInterface;
 use Spryker\Zed\Twig\Communication\Subscriber\TwigEventSubscriber;
+use Spryker\Zed\Twig\Communication\Twig\ConfigurationValuesTwigFunctionProvider;
+use Spryker\Zed\Twig\Communication\Twig\ConfigurationValueTwigFunctionProvider;
 use Spryker\Zed\Twig\TwigDependencyProvider;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Twig\Environment;
 use Twig\Loader\ChainLoader;
+use Twig\TwigFunction;
 
 /**
  * @method \Spryker\Zed\Twig\TwigConfig getConfig()
@@ -161,5 +165,37 @@ class TwigCommunicationFactory extends AbstractCommunicationFactory
     public function getTwigEnvironment(): Environment
     {
         return $this->getContainer()->getApplicationService(TwigApplicationPlugin::SERVICE_TWIG);
+    }
+
+    public function createConfigurationValueTwigFunctionProvider(): TwigFunctionProvider
+    {
+        return new ConfigurationValueTwigFunctionProvider($this->getConfig());
+    }
+
+    public function createConfigurationValueTwigFunction(): TwigFunction
+    {
+        $functionProvider = $this->createConfigurationValueTwigFunctionProvider();
+
+        return new TwigFunction(
+            $functionProvider->getFunctionName(),
+            $functionProvider->getFunction(),
+            $functionProvider->getOptions(),
+        );
+    }
+
+    public function createConfigurationValuesTwigFunctionProvider(): TwigFunctionProvider
+    {
+        return new ConfigurationValuesTwigFunctionProvider($this->getConfig());
+    }
+
+    public function createConfigurationValuesTwigFunction(): TwigFunction
+    {
+        $functionProvider = $this->createConfigurationValuesTwigFunctionProvider();
+
+        return new TwigFunction(
+            $functionProvider->getFunctionName(),
+            $functionProvider->getFunction(),
+            $functionProvider->getOptions(),
+        );
     }
 }
