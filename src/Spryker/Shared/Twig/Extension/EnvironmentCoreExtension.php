@@ -7,8 +7,12 @@
 
 namespace Spryker\Shared\Twig\Extension;
 
+use ReflectionMethod;
+use ReflectionNamedType;
+use Throwable;
 use Twig\Environment;
 use Twig\Extension\CoreExtension;
+use Twig\Extension\SandboxExtension;
 use Twig\TwigFilter;
 
 class EnvironmentCoreExtension implements EnvironmentCoreExtensionInterface
@@ -53,6 +57,14 @@ class EnvironmentCoreExtension implements EnvironmentCoreExtensionInterface
         'apache_setenv',
     ];
 
+    /**
+     * Cache for `CoreExtension::<method>()` signature lookups — whether the
+     * method declares `bool $isSandboxed` as its second parameter.
+     *
+     * @var array<string, bool>
+     */
+    protected static array $coreExtensionNeedsIsSandboxed = [];
+
     public function extend(Environment $twig): Environment
     {
         foreach ($this->getFilters() as $filter) {
@@ -76,7 +88,7 @@ class EnvironmentCoreExtension implements EnvironmentCoreExtensionInterface
         }
 
         if (method_exists(CoreExtension::class, 'filter')) {
-            return CoreExtension::filter($env, $array, $arrow);
+            return $this->dispatchToCoreExtension($env, 'filter', $array, $arrow);
         }
 
         return twig_array_filter($env, $array, $arrow);
@@ -95,7 +107,7 @@ class EnvironmentCoreExtension implements EnvironmentCoreExtensionInterface
             return $array;
         }
 
-        return CoreExtension::find($env, $array, $arrow);
+        return $this->dispatchToCoreExtension($env, 'find', $array, $arrow);
     }
 
     /**
@@ -112,7 +124,7 @@ class EnvironmentCoreExtension implements EnvironmentCoreExtensionInterface
         }
 
         if (method_exists(CoreExtension::class, 'map')) {
-            return CoreExtension::map($env, $array, $arrow);
+            return $this->dispatchToCoreExtension($env, 'map', $array, $arrow);
         }
 
         return twig_array_map($env, $array, $arrow);
@@ -133,7 +145,7 @@ class EnvironmentCoreExtension implements EnvironmentCoreExtensionInterface
         }
 
         if (method_exists(CoreExtension::class, 'reduce')) {
-            return CoreExtension::reduce($env, $array, $arrow, $initial);
+            return $this->dispatchToCoreExtension($env, 'reduce', $array, $arrow, $initial);
         }
 
         return twig_array_reduce($env, $array, $arrow, $initial);
@@ -147,6 +159,72 @@ class EnvironmentCoreExtension implements EnvironmentCoreExtensionInterface
     protected function isDisallowedPhpFunction($arrow): bool
     {
         return in_array($arrow, static::SYSTEM_FUNCTIONS);
+    }
+
+    /**
+     * Forwards a call to `\Twig\Extension\CoreExtension::<method>()` using the
+     * argument shape that matches the installed Twig version. Twig added a
+     * `bool $isSandboxed` parameter at position 2 of `filter`/`find`/`map`/
+     * `reduce` (Twig 4.x); on older versions the signature is unchanged. We
+     * detect the parameter via reflection so the same Spryker module works
+     * against both Twig ranges declared in composer.json
+     * (`^2.16.1 || ^3.14.0`).
+     *
+     * @param \Twig\Environment $env
+     * @param string $method
+     * @param mixed ...$args
+     *
+     * @return mixed
+     */
+    protected function dispatchToCoreExtension(Environment $env, string $method, ...$args)
+    {
+        if ($this->coreExtensionNeedsIsSandboxed($method)) {
+            return CoreExtension::$method($env, $this->resolveIsSandboxed($env), ...$args);
+        }
+
+        return CoreExtension::$method($env, ...$args);
+    }
+
+    protected function coreExtensionNeedsIsSandboxed(string $method): bool
+    {
+        if (array_key_exists($method, static::$coreExtensionNeedsIsSandboxed)) {
+            return static::$coreExtensionNeedsIsSandboxed[$method];
+        }
+
+        try {
+            $parameters = (new ReflectionMethod(CoreExtension::class, $method))->getParameters();
+            $secondParameter = $parameters[1] ?? null;
+
+            if ($secondParameter === null) {
+                return static::$coreExtensionNeedsIsSandboxed[$method] = false;
+            }
+
+            $type = $secondParameter->getType();
+
+            return static::$coreExtensionNeedsIsSandboxed[$method] = (
+                $secondParameter->getName() === 'isSandboxed'
+                && $type instanceof ReflectionNamedType
+                && $type->getName() === 'bool'
+            );
+        } catch (Throwable) {
+            return static::$coreExtensionNeedsIsSandboxed[$method] = false;
+        }
+    }
+
+    protected function resolveIsSandboxed(Environment $env): bool
+    {
+        if (!$env->hasExtension(SandboxExtension::class)) {
+            return false;
+        }
+
+        try {
+            /** @var \Twig\Extension\SandboxExtension $sandbox */
+            $sandbox = $env->getExtension(SandboxExtension::class);
+
+            return $sandbox->isSandboxed();
+        } catch (Throwable) {
+            return false;
+        }
     }
 
     /**

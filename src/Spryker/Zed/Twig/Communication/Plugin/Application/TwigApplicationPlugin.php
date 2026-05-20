@@ -21,16 +21,22 @@ use Twig\Loader\ChainLoader;
 class TwigApplicationPlugin extends AbstractPlugin implements ApplicationPluginInterface
 {
     /**
+     * @api
+     *
      * @var string
      */
     public const SERVICE_TWIG = 'twig';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const SERVICE_DEBUG = 'debug';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const SERVICE_CHARSET = 'charset';
