@@ -55,8 +55,14 @@ if (Environment::MAJOR_VERSION < 3) {
         public function getSourceContext($name)
         {
             $path = $this->findTemplate($name);
+            $originalCode = file_get_contents($path);
+            // Collapse 2+ leading whitespace chars to one space instead of stripping completely.
+            // Twig 3 always eats the \n after %} block tags; keeping one space ensures it
+            // acts as a separator so adjacent HTML attributes are never concatenated.
+            $spacelessCode = preg_replace('/^[ \t]{2,}/m', ' ', $originalCode);
+            $spacelessCode = preg_replace('/\n{2,}/', "\n", $spacelessCode);
 
-            return new Source(file_get_contents($path), $name, $path);
+            return new Source($spacelessCode, $name, $path);
         }
 
         /**
@@ -121,7 +127,14 @@ if (Environment::MAJOR_VERSION < 3) {
         {
             $path = $this->findTemplate($name);
 
-            return new Source(file_get_contents($path), $name, $path);
+            $originalCode = file_get_contents($path);
+            // Collapse 2+ leading whitespace chars to one space instead of stripping completely.
+            // Twig 3 always eats the \n after %} block tags; keeping one space ensures it
+            // acts as a separator so adjacent HTML attributes are never concatenated.
+            $spacelessCode = preg_replace('/^[ \t]{2,}/m', ' ', $originalCode);
+            $spacelessCode = preg_replace('/\n{2,}/', "\n", $spacelessCode); // Collapses consecutive blank lines into one
+
+            return new Source($spacelessCode, $name, $path);
         }
 
         /**
