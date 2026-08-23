@@ -137,7 +137,6 @@ class TwigFilesystemLoaderTest extends Unit
 
         $reflection = new ReflectionClass(get_class($filesystemLoader));
         $method = $reflection->getMethod('isPathInSplit');
-        $method->setAccessible(true);
 
         $result = $method->invokeArgs($filesystemLoader, ['src/Spryker/Foo/']);
         $this->assertFalse($result);
