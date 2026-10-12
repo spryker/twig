@@ -14,6 +14,8 @@ use Spryker\Zed\Twig\Business\Model\CacheWarmer\CacheWarmerComposite;
 use Spryker\Zed\Twig\Business\Model\TemplatePathMapBuilder\TemplateNameBuilder\TemplateNameBuilderYves;
 use Spryker\Zed\Twig\Business\Model\TemplatePathMapBuilder\TemplateNameBuilder\TemplateNameBuilderZed;
 use Spryker\Zed\Twig\Business\Model\TemplatePathMapBuilder\TemplatePathMapBuilder;
+use Spryker\Zed\Twig\Business\Reader\TwigConfigurationReader;
+use Spryker\Zed\Twig\Business\Reader\TwigConfigurationReaderInterface;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -122,5 +124,10 @@ class TwigBusinessFactory extends AbstractBusinessFactory
     protected function createFinder()
     {
         return new Finder();
+    }
+
+    public function createTwigConfigurationReader(): TwigConfigurationReaderInterface
+    {
+        return new TwigConfigurationReader($this->getConfig());
     }
 }

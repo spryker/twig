@@ -1,4 +1,7 @@
 {
+    "include": {
+        "spryker/transfer": "Provides transfer objects definition with strict types."
+    },
     "include-dev": {
         "symfony/var-dumper": "Provides pretty debug tool."
     }

@@ -7,6 +7,7 @@
 
 namespace Spryker\Zed\Twig\Business;
 
+use Generated\Shared\Transfer\TwigConfigurationResponseTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
@@ -24,5 +25,15 @@ class TwigFacade extends AbstractFacade implements TwigFacadeInterface
     public function warmUpCache()
     {
         $this->getFactory()->createCacheWarmer()->warmUp();
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     */
+    public function getTwigConfiguration(): TwigConfigurationResponseTransfer
+    {
+        return $this->getFactory()->createTwigConfigurationReader()->getTwigConfiguration();
     }
 }

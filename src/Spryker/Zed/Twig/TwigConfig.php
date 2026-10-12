@@ -142,6 +142,28 @@ class TwigConfig extends AbstractBundleConfig
     }
 
     /**
+     * Specification:
+     * - Returns the Yves theme name configured by `TwigConstants::YVES_THEME`.
+     *
+     * @api
+     */
+    public function getYvesThemeName(): string
+    {
+        return $this->getSharedConfig()->getYvesThemeName();
+    }
+
+    /**
+     * Specification:
+     * - Returns the Yves theme name used as a fallback for the configured theme.
+     *
+     * @api
+     */
+    public function getYvesThemeNameDefault(): string
+    {
+        return $this->getSharedConfig()->getYvesThemeNameDefault();
+    }
+
+    /**
      * @api
      *
      * @return string
