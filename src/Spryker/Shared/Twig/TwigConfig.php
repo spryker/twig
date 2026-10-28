@@ -60,6 +60,36 @@ class TwigConfig extends AbstractSharedConfig
 
     /**
      * Specification:
+     * - Returns the directory patterns of the Shared theme templates (`Shared/<Module>/Theme/<theme>`), keyed by organization, in lookup order.
+     * - `%s` in a pattern stands for the module name.
+     * - Project namespaces come first, each with the given theme names in the given order.
+     * - Core namespaces follow with the default theme only.
+     *
+     * @api
+     *
+     * @param list<string> $themeNames
+     *
+     * @return array<string, list<string>>
+     */
+    public function getSharedThemeTemplatePathPatterns(array $themeNames): array
+    {
+        $templatePathPatternsByOrganization = [];
+
+        foreach ($this->getProjectNamespaces() as $namespace) {
+            foreach ($themeNames as $themeName) {
+                $templatePathPatternsByOrganization[$namespace][] = rtrim(APPLICATION_SOURCE_DIR, DIRECTORY_SEPARATOR) . '/' . $namespace . '/Shared/%s/Theme/' . $themeName;
+            }
+        }
+
+        foreach ($this->getCoreNamespaces() as $namespace) {
+            $templatePathPatternsByOrganization[$namespace][] = rtrim(APPLICATION_VENDOR_DIR, DIRECTORY_SEPARATOR) . '/*/*/src/' . $namespace . '/Shared/%s/Theme/' . static::THEME_NAME_DEFAULT;
+        }
+
+        return $templatePathPatternsByOrganization;
+    }
+
+    /**
+     * Specification:
      * - Defines the default path to the Twig `.pathCache` file.
      * - Can be redefined on Yves or Zed configs.
      *

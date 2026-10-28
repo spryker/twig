@@ -294,6 +294,20 @@ class TwigConfig extends AbstractBundleConfig
     }
 
     /**
+     * Specification:
+     * - Returns the directory patterns of the Shared theme templates (`Shared/<Module>/Theme/<theme>`), keyed by organization, in lookup order.
+     * - Zed has no theme switch, so only the default theme is looked up.
+     *
+     * @api
+     *
+     * @return array<string, list<string>>
+     */
+    public function getSharedThemeTemplatePathPatterns(): array
+    {
+        return $this->getSharedConfig()->getSharedThemeTemplatePathPatterns([$this->getYvesThemeNameDefault()]);
+    }
+
+    /**
      * @api
      *
      * @return array<string>

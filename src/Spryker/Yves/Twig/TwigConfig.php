@@ -103,6 +103,23 @@ class TwigConfig extends AbstractBundleConfig
     }
 
     /**
+     * Specification:
+     * - Returns the directory patterns of the Shared theme templates (`Shared/<Module>/Theme/<theme>`), keyed by organization, in lookup order.
+     * - Project namespaces try the configured Yves theme before the default theme.
+     *
+     * @api
+     *
+     * @return array<string, list<string>>
+     */
+    public function getSharedThemeTemplatePathPatterns(): array
+    {
+        $themeNameDefault = $this->getThemeNameDefault();
+        $themeNames = array_values(array_unique(array_filter([$this->getThemeName(), $themeNameDefault])));
+
+        return $this->getSharedConfig()->getSharedThemeTemplatePathPatterns($themeNames);
+    }
+
+    /**
      * @api
      *
      * @return string

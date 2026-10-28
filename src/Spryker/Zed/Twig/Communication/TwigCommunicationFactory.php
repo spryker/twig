@@ -20,6 +20,7 @@ use Spryker\Shared\Twig\Filter\FilterFactory;
 use Spryker\Shared\Twig\Filter\FilterFactoryInterface;
 use Spryker\Shared\Twig\Loader\FilesystemLoader;
 use Spryker\Shared\Twig\Loader\FilesystemLoaderInterface;
+use Spryker\Shared\Twig\Loader\SharedThemeFilesystemLoader;
 use Spryker\Shared\Twig\TemplateNameExtractor\TemplateNameExtractor;
 use Spryker\Shared\Twig\TwigFilesystemLoader;
 use Spryker\Shared\Twig\TwigFunctionProvider;
@@ -78,6 +79,11 @@ class TwigCommunicationFactory extends AbstractCommunicationFactory
     public function createTwigFilesystemLoader(): FilesystemLoaderInterface
     {
         return new FilesystemLoader($this->getConfig()->getFormTemplateDirectories());
+    }
+
+    public function createSharedThemeFilesystemLoader(): FilesystemLoaderInterface
+    {
+        return new SharedThemeFilesystemLoader($this->getConfig()->getSharedThemeTemplatePathPatterns());
     }
 
     /**
