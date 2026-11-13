@@ -10,6 +10,7 @@ namespace SprykerTest\Zed\Twig\Communication\Plugin\Application;
 use Codeception\Test\Unit;
 use Spryker\Service\Container\ContainerInterface;
 use Spryker\Shared\Twig\Extender\FilterExtenderInterface;
+use Spryker\Shared\Twig\Extender\UndefinedCallableFallbackExtender;
 use Spryker\Shared\Twig\Loader\FilesystemLoaderInterface;
 use Spryker\Shared\TwigExtension\Dependency\Plugin\TwigLoaderPluginInterface;
 use Spryker\Shared\TwigExtension\Dependency\Plugin\TwigPluginInterface;
@@ -18,6 +19,7 @@ use Spryker\Zed\Twig\Communication\TwigCommunicationFactory;
 use Spryker\Zed\Twig\TwigConfig;
 use SprykerTest\Zed\Twig\TwigCommunicationTester;
 use Twig\Environment;
+use Twig\Error\SyntaxError;
 use Twig\Loader\ChainLoader;
 use Twig\TwigFunction;
 
@@ -40,6 +42,10 @@ class TwigApplicationPluginTest extends Unit
     protected const string TWIG_FUNCTION_NAME = 'configurationValue';
 
     protected const string TWIG_FUNCTION_NAME_VALUES = 'configurationValues';
+
+    protected const string TEMPLATE_WITH_UNDEFINED_FUNCTION_FALLBACK_ENABLED = '{{ undefinedFunctionWithFallback("input") }}';
+
+    protected const string TEMPLATE_WITH_UNDEFINED_FUNCTION_FALLBACK_DISABLED = '{{ undefinedFunctionWithoutFallback("input") }}';
 
     protected const string TEST_CONFIG_KEY = 'theme:storefront:colors:main_color';
 
@@ -101,6 +107,33 @@ class TwigApplicationPluginTest extends Unit
 
         // Assert
         $this->assertNotFalse($twig->getFunction(static::TWIG_FUNCTION_NAME_VALUES));
+    }
+
+    public function testGivenUndefinedCallableFallbackEnabledWhenTemplateCallsUndefinedFunctionThenInputIsRendered(): void
+    {
+        // Arrange
+        $twig = $this->invokeTwigServiceClosure(isUndefinedCallableFallbackEnabled: true);
+
+        // Act
+        $output = $twig->createTemplate(static::TEMPLATE_WITH_UNDEFINED_FUNCTION_FALLBACK_ENABLED)->render();
+
+        // Assert
+        $this->assertSame('input', $output);
+    }
+
+    /**
+     * Twig skips compiling a template whose class already exists in the process, so each test needs its own template source.
+     */
+    public function testGivenUndefinedCallableFallbackDisabledWhenTemplateCallsUndefinedFunctionThenSyntaxErrorIsThrown(): void
+    {
+        // Arrange
+        $twig = $this->invokeTwigServiceClosure();
+
+        // Expect
+        $this->expectException(SyntaxError::class);
+
+        // Act
+        $twig->createTemplate(static::TEMPLATE_WITH_UNDEFINED_FUNCTION_FALLBACK_DISABLED);
     }
 
     public function testTwigServiceShouldCallTwigPluginExtend(): void
@@ -421,12 +454,14 @@ class TwigApplicationPluginTest extends Unit
         array $loaderPlugins = [],
         array $twigPlugins = [],
         ?FilterExtenderInterface $filterExtender = null,
+        bool $isUndefinedCallableFallbackEnabled = false,
     ): TwigCommunicationFactory {
         $factoryMock = $this->createMock(TwigCommunicationFactory::class);
         $factoryMock->method('createChainLoader')->willReturn(new ChainLoader());
         $factoryMock->method('getTwigLoaderPlugins')->willReturn($loaderPlugins);
         $factoryMock->method('getTwigPlugins')->willReturn($twigPlugins);
         $factoryMock->method('createFilterExtender')->willReturn($filterExtender ?? $this->createPassThroughFilterExtender());
+        $factoryMock->method('createUndefinedCallableFallbackExtender')->willReturn(new UndefinedCallableFallbackExtender($isUndefinedCallableFallbackEnabled));
         $factoryMock->method('createConfigurationValueTwigFunction')->willReturn(
             new TwigFunction(static::TWIG_FUNCTION_NAME, static fn (): mixed => null),
         );
@@ -459,9 +494,12 @@ class TwigApplicationPluginTest extends Unit
         return $containerMock;
     }
 
-    protected function invokeTwigServiceClosure(array $twigPlugins = []): Environment
+    /**
+     * @param array<\Spryker\Shared\TwigExtension\Dependency\Plugin\TwigPluginInterface> $twigPlugins
+     */
+    protected function invokeTwigServiceClosure(array $twigPlugins = [], bool $isUndefinedCallableFallbackEnabled = false): Environment
     {
-        [$twig] = $this->invokeTwigServiceClosureWithContainer($twigPlugins);
+        [$twig] = $this->invokeTwigServiceClosureWithContainer($twigPlugins, $isUndefinedCallableFallbackEnabled);
 
         return $twig;
     }
@@ -471,14 +509,14 @@ class TwigApplicationPluginTest extends Unit
      *
      * @return array{\Twig\Environment, \Spryker\Service\Container\ContainerInterface}
      */
-    protected function invokeTwigServiceClosureWithContainer(array $twigPlugins = []): array
+    protected function invokeTwigServiceClosureWithContainer(array $twigPlugins = [], bool $isUndefinedCallableFallbackEnabled = false): array
     {
         $configMock = $this->createMock(TwigConfig::class);
         $configMock->method('getTwigOptions')->willReturn([]);
 
         $plugin = new TwigApplicationPlugin();
         $plugin->setConfig($configMock);
-        $plugin->setFactory($this->createFactoryMock(twigPlugins: $twigPlugins));
+        $plugin->setFactory($this->createFactoryMock(twigPlugins: $twigPlugins, isUndefinedCallableFallbackEnabled: $isUndefinedCallableFallbackEnabled));
 
         $capturedClosure = null;
 

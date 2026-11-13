@@ -90,6 +90,19 @@ class TwigConfig extends AbstractSharedConfig
 
     /**
      * Specification:
+     * - Returns `true` when Twig functions, filters and tests that no registered Twig plugin provides must not fail the template compilation.
+     * - Applies to Yves and Zed.
+     * - An unknown function returns its first argument (or null), an unknown filter returns its input, an unknown test evaluates to false (Twig 3.22.0 and later).
+     *
+     * @api
+     */
+    public function isUndefinedCallableFallbackEnabled(): bool
+    {
+        return false;
+    }
+
+    /**
+     * Specification:
      * - Defines the default path to the Twig `.pathCache` file.
      * - Can be redefined on Yves or Zed configs.
      *

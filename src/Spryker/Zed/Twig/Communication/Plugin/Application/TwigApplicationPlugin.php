@@ -47,6 +47,7 @@ class TwigApplicationPlugin extends AbstractPlugin implements ApplicationPluginI
      * - Adds the `configurationValue` Twig function for reading module configuration values.
      * - Adds the `configurationValues` Twig function for reading module configuration values by prefix.
      * - Runs all registered TwigPlugins via extendTwig().
+     * - Registers fallbacks for Twig functions, filters and tests that no TwigPlugin provides when {@link \Spryker\Zed\Twig\TwigConfig::isUndefinedCallableFallbackEnabled()} returns `true`.
      *
      * @api
      */
@@ -70,6 +71,7 @@ class TwigApplicationPlugin extends AbstractPlugin implements ApplicationPluginI
             $twig = $this->addConfigurationValueTwigFunction($twig);
             $twig = $this->addConfigurationValuesTwigFunction($twig);
             $twig = $this->extendTwig($twig, $container);
+            $twig = $this->addUndefinedCallableFallback($twig);
 
             return $twig;
         });
@@ -89,6 +91,11 @@ class TwigApplicationPlugin extends AbstractPlugin implements ApplicationPluginI
         $twig->addFunction($this->getFactory()->createConfigurationValuesTwigFunction());
 
         return $twig;
+    }
+
+    protected function addUndefinedCallableFallback(Environment $twig): Environment
+    {
+        return $this->getFactory()->createUndefinedCallableFallbackExtender()->extend($twig);
     }
 
     protected function getChainLoader(): ChainLoader

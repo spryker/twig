@@ -170,6 +170,18 @@ class TwigConfig extends AbstractBundleConfig
     }
 
     /**
+     * Specification:
+     * - Returns `true` when Twig functions, filters and tests that no registered Twig plugin provides must not fail the template compilation.
+     * - Uses the shared {@link \Spryker\Shared\Twig\TwigConfig::isUndefinedCallableFallbackEnabled()} setting.
+     *
+     * @api
+     */
+    public function isUndefinedCallableFallbackEnabled(): bool
+    {
+        return $this->getSharedConfig()->isUndefinedCallableFallbackEnabled();
+    }
+
+    /**
      * @api
      *
      * @return array<string, mixed>

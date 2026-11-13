@@ -13,6 +13,8 @@ use Spryker\Shared\Twig\Cache\CacheLoaderInterface;
 use Spryker\Shared\Twig\Cache\CacheWriter\FilesystemCacheWriter;
 use Spryker\Shared\Twig\Extender\FilterExtender;
 use Spryker\Shared\Twig\Extender\FilterExtenderInterface;
+use Spryker\Shared\Twig\Extender\UndefinedCallableFallbackExtender;
+use Spryker\Shared\Twig\Extender\UndefinedCallableFallbackExtenderInterface;
 use Spryker\Shared\Twig\Extension\EnvironmentCoreExtension;
 use Spryker\Shared\Twig\Extension\EnvironmentCoreExtensionInterface;
 use Spryker\Shared\Twig\Filter\FilterFactory;
@@ -119,6 +121,11 @@ class TwigFactory extends AbstractFactory
             $this->createFilterFactory(),
             $this->createEnvironmentCoreExtension(),
         );
+    }
+
+    public function createUndefinedCallableFallbackExtender(): UndefinedCallableFallbackExtenderInterface
+    {
+        return new UndefinedCallableFallbackExtender($this->getConfig()->isUndefinedCallableFallbackEnabled());
     }
 
     public function createFilterFactory(): FilterFactoryInterface

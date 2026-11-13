@@ -62,11 +62,17 @@ class TwigApplicationPlugin extends AbstractPlugin implements ApplicationPluginI
             $twig = $this->addGlobalTwigFilters($twig);
 
             $twig = $this->extendTwig($twig, $container);
+            $twig = $this->addUndefinedCallableFallback($twig);
 
             return $twig;
         });
 
         return $container;
+    }
+
+    protected function addUndefinedCallableFallback(Environment $twig): Environment
+    {
+        return $this->getFactory()->createUndefinedCallableFallbackExtender()->extend($twig);
     }
 
     protected function getChainLoader(): ChainLoader
