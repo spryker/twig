@@ -28,7 +28,7 @@ class RouteResolver implements RouteResolverInterface
 
     public function buildRouteFromControllerServiceName(string $controllerServiceName): string
     {
-        [$serviceName, $actionName] = explode(':', $controllerServiceName);
+        [$serviceName] = explode(':', $controllerServiceName);
         $serviceNameParts = explode('.', $serviceName);
 
         $serviceNameParts[static::SERVICE_NAME_INDEX_TEMPLATE_NAME] = $this->getCamelCaseToDash($serviceNameParts[static::SERVICE_NAME_INDEX_TEMPLATE_NAME]);
